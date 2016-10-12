@@ -1,0 +1,102 @@
+What is a version control system.
+Version control software is a database of versions.
+just like a database consists of backend data - version control software is a database and consists of versions
+
+What is git 
+git is a version control software.
+in git a repository is the database of commits.
+you can have local as well as remote reREpositories.
+
+let us go ahead and make a repository
+
+git init
+
+//repository is initialized
+git log
+git branch
+git status
+
+cd .git
+
+----------------------
+
+touch README
+git status
+git commit -a -m "test"
+git log
+git branch
+
+now 
+
+touch INDEX
+touch FEATURE
+
+now how will you commit both these files directly to the repo ???
+
+you cannot .
+so git offers a two stage commit process
+first you add files to a staging area.
+you add files in staging area to prepare for the commit.
+to add to staging area - you do a git add 
+A snapshot is prepared in the staging area for the next commit.
+An index of files is prepared for the next commit
+
+so first git add 
+and then git commit
+
+This helps you to plan your commits.
+Think of commits as pieces of your work which need to be distributed.
+
+Why do we need version control 
+if alone - to go back to any past combination of commits.
+To distribute any combination of commits to your colleagues and customers.
+
+Tutorial - Make your own blog and host it for free on github .
+
+git branching tutorial
+
+Cd code/learngit
+Git init
+Git branch 
+// no branch will be present
+Touch README
+notepad README
+//write text as first commit in readme, save and close
+Git status
+Git add
+Git commit
+Git branch
+//master branch will now be created
+Git log
+//shows one commit
+// let us make a new branch
+Git branch feature-branch
+//switch to feature-branch
+Git checkout feature-branch
+Git log
+//shows one commit as branch was created after one commit in master branch
+Notepad README
+//edit text and write second commit save and close
+Git add  
+git commit -m “second commit”
+Git log
+//2 commits shown in feature branch
+//now switch to master branch
+Git checkout master
+Notepad README 
+
+//only one commit is present in working tree - as second commit was added in feature branch and not master branch
+Close notepad
+Git log 
+//only one commit is shown as second commit was done in feature branch and not master branch
+//Now we need second commit in master branch
+Git merge feature-branch
+Git log
+// 2 commits are shown
+Notepad README 
+// 2 commits are shown 
+
+Close notepad
+//Repeat this cycle few times.
+
+
