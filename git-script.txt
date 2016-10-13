@@ -31,10 +31,10 @@ now
 touch INDEX
 touch FEATURE
 
-now how will you commit both these files directly to the repo ???
 
-you cannot .
-so git offers a two stage commit process
+
+
+git offers a two stage commit process
 first you add files to a staging area.
 you add files in staging area to prepare for the commit.
 to add to staging area - you do a git add 
