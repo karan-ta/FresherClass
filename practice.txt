@@ -1,0 +1,7 @@
+try out complete git script and ask any questions.
+
+try out trygit tutorial and ask any questions.
+
+fork fresherclass, add files of your questions / findings.
+send a pull request to upstream.
+

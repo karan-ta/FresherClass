@@ -1,0 +1,16 @@
+make your personalpage on github.com using https://www.thinkful.com/learn/a-guide-to-using-github-pages/
+
+make your resume using https://github.com/ellekasai/resumecards
+within your blog.
+
+plan of attack for building new resume :
+1) you need to fork this repository - https://github.com/ellekasai/resumecards
+(within your blog repository -- need to research this a bit )
+1a) install rvm, jekyll
+2) edit and make your changes
+
+3) push it so that resume is within blog
+4) your resume should come up at http://neerajbhalekar.github.io/resume
+5) your resume will stand out like this - http://ellekasai.github.io/resumecards/
+(just scroll down).
+
