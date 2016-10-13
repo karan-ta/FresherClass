@@ -1,12 +1,21 @@
+
+*** all commands try with clean/empty staging and clean/empty workspace.
+commit all files already present in staging or modified in workspace and then try each below example :
+check this with git status before every example.
+use up arrow and tab for easy typing.
+
+
+
 What is a version control system.
+---------------------------------------------------------
 Version control software is a database of versions.
 just like a database consists of backend data - version control software is a database and consists of versions
 
 What is git 
+---------------------------------------------------------
 git is a version control software.
 in git a repository is the database of commits.
 you can have local as well as remote reREpositories.
-
 let us go ahead and make a repository
 
 git init
@@ -18,6 +27,7 @@ git status
 
 cd .git
 
+what are the outputs of above ?
 ----------------------
 
 touch README
@@ -26,15 +36,22 @@ git commit -a -m "test"
 git log
 git branch
 
-now 
+now what are the outputs of above ?
 
 touch INDEX
 touch FEATURE
+now what are the outputs of:
+git status
+git commit -a -m "test"
+git log
+git branch
 
+try to predict the git status.
 
-
-
+What is the two stage commit process?
+------------------------------------------------
 git offers a two stage commit process
+
 first you add files to a staging area.
 you add files in staging area to prepare for the commit.
 to add to staging area - you do a git add 
@@ -47,14 +64,89 @@ and then git commit
 This helps you to plan your commits.
 Think of commits as pieces of your work which need to be distributed.
 
+
+How to skip the staging area ?
+--------------------------------------------------------
+when you create a new file.
+it is untracked
+ you cannot skip the staging area and directly commit it.
+vim -p newfile
+now you do git status
+newfile is untracked by git - git does not know about a new file
+unless you first add it into the staging area.
+so you need to do
+ git add newfile
+ so that git knows that this newly created file 
+should be tracked by git.
+
+
+when you modify a file which is already tracked by git - you can skip the staging area .
+Use the flag -a
+git commit -a -m "commit all modified files in working tree"
+----------------------------------------
+//make staging and workspace clean by commiting everything already present in staging.
+with clean workspace and clean staging - 
+vim -p readme > a line
+vim -p index > a line
+git add .
+vim -p index
+// 2 files in staging area and 1 file modified
+//lets commit all
+git commit -a -m "commit staging and modified together and skiping staging area"
+
+
+only modified files can be committed by skipping staging area.
+
+try predicting status .
+if new file is created in workspace - status will be untracked.
+if file is added in staging and then file is modified in workspace, 
+then status will be modified.
+
+
+
+Why we need the two stage commit process ?
+------------------------------------------------------------------------
+suppose you create a new file in the working tree and you do not wish to commit this file.
+let it remain untracked. 
+so that its not commited untill you track it (by doing git add)
+so when you commit with the -a flag , even then staging allows you to not commit some files.
+just let them be untracked if you do not want to commit.
+
+it also allows you to plan your commits better. (we will discuss this)
+
+
+
 Why do we need version control 
-if alone - to go back to any past combination of commits.
+-------------------------------------------
+if alone - to go back to any past combination of commits.(we will discuss this)
 To distribute any combination of commits to your colleagues and customers.
 
-Tutorial - Make your own blog and host it for free on github .
+What is HEAD ?
+--------------------------------------------
+latest commit of current branch is HEAD
+git rev-parse HEAD
+try above commit on different branches
 
-git branching tutorial
+What is git diff ?
+---------------------------------------------
+commit everything in staging and workspace with command git commit -a
+now workspace and staging are clean.
 
+now :
+
+vim -p readme > a line
+vim -p index > a line
+git status
+//modified files are 2 .
+git diff
+//diff between staging and workspace
+git diff HEAD 
+//same as above
+git diff --cached
+//both staging and HEAD have nothing new so no diff
+
+Working with git branching?
+------------------------------------------------------
 Cd code/learngit
 Git init
 Git branch 
@@ -98,5 +190,39 @@ Notepad README
 
 Close notepad
 //Repeat this cycle few times.
+
+
+What is git cherry-pick?
+--------------------------------------------
+on master branch - 
+vim -p feature1
+vim -p feature2
+git add feature1
+git branch newfeature-branch
+git commit -m "feature1"
+//note the commit hash with git log --oneline
+git add feature2
+git commit -m "feature2"
+//note the commit hash with git log --oneline
+git checkout newfeature-branch
+ls
+git cherry-pick <commit number>
+ls
+switch to master and git log --oneline
+switch to newfeature-branch and git log --oneline
+observe the difference in logs.
+
+
+Diagrams - 
+https://git-scm.com/images/about/index1@2x.png
+http://i.stack.imgur.com/MgaV9.png
+http://images.abizern.org.s3.amazonaws.com/365git/March10/GitDiffSimple.png
+
+
+
+
+
+
+
 
 
