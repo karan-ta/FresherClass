@@ -1,7 +1,7 @@
 
 *** all commands try with clean/empty staging and clean/empty workspace.
-commit all files already present in staging or modified in workspace and then try each below example :
-check this with git status before every example.
+commit all files already present in your staging or modified in workspace and then try each below example :
+check that staging and workspace are both clean (have not untracked or modified files) with git status before every example.
 use up arrow and tab for easy typing.
 
 
@@ -9,15 +9,23 @@ use up arrow and tab for easy typing.
 What is a version control system.
 ---------------------------------------------------------
 Version control software is a database of versions.
-just like a database consists of backend data - version control software is a database and consists of versions
+just like a database consists of backend data - version control software is a database and consists of versions of your code.
 
 What is git 
 ---------------------------------------------------------
 git is a version control software.
 in git a repository is the database of commits.
-you can have local as well as remote reREpositories.
+you can have local as well as remote repositories.
 let us go ahead and make a repository
 
+//make a directory inside your code directory
+mkdir learngit
+//This is your working tree.
+//now let us create a repository and associate it to 
+//this working tree
+
+git config user.name "myemail"
+git config user.email "myname"
 git init
 
 //repository is initialized
@@ -32,11 +40,13 @@ what are the outputs of above ?
 
 touch README
 git status
+git add
 git commit -a -m "test"
 git log
 git branch
 
 now what are the outputs of above ?
+
 
 touch INDEX
 touch FEATURE
@@ -48,11 +58,12 @@ git branch
 
 try to predict the git status.
 
+
 What is the two stage commit process?
 ------------------------------------------------
 git offers a two stage commit process
 
-first you add files to a staging area.
+first you add files to a staging area and secondly you commit them to local repository.
 you add files in staging area to prepare for the commit.
 to add to staging area - you do a git add 
 A snapshot is prepared in the staging area for the next commit.
@@ -62,7 +73,23 @@ so first git add
 and then git commit
 
 This helps you to plan your commits.
+10 files - 5 in one commit and 5 in other
 Think of commits as pieces of your work which need to be distributed.
+
+Think of staging area / index as
+a way of “confirming” your changes, one by one, before doing a commit.
+git status
+
+** show diff now
+open a tracked file in vim 
+vim -p readme
+git diff
+git add
+git diff HEAD
+git commit
+
+use diff to confirm your actions
+
 
 
 How to skip the staging area ?
@@ -102,6 +129,17 @@ if new file is created in workspace - status will be untracked.
 if file is added in staging and then file is modified in workspace, 
 then status will be modified.
 
+When to skip the staging area ?
+-------------------------------------------------------
+when you dont need to plan your commits.
+if you see the diff between workspace and repository with 
+git diff HEAD
+and you are happy with the difference.
+also if you see the diff between workspace and staging with 
+git diff 
+and you are happy. 
+being happy here means - if your diff results are the exact ones you want to commit.
+so go ahead and commit if you are happy with the diff.
 
 
 Why we need the two stage commit process ?
@@ -118,8 +156,121 @@ it also allows you to plan your commits better. (we will discuss this)
 
 Why do we need version control 
 -------------------------------------------
-if alone - to go back to any past combination of commits.(we will discuss this)
+if working alone - to go back to any past combination of commits.
+
+you made a change to file in your workspace.
+you want to revert that change and replace it with the one on your local repository.
+git checkout <filename>
+** in this case git checkout is a dangerous command.
+** use git diff to confirm.
+
+
+To just update the message, add files present in staging - git commit --amend
+vim -p file1 > test
+git add
+git commit
+git commit --amend
+//update commit message
+//oops we forgot to add meta file
+vim -p file1_meta > test
+git add file1_meta
+//lets add file1_meta to the previous commit
+git commit --amend
+
+Let us now see how to go to previous commits
+with clean staging and workspace - please tr
+y below:
+
+vim -p file1 > test
+vim -p file 2 > test
+git add file1
+git commit -m "add file1"
+git add file2
+git commit -m "add file2"
+git log --oneline 
+// you will see 2 commits . 
+git checkout <hash of first commit>
+ls
+git log
+
+// was this a safe operation or dangerous one ?
+
+now did we loose index file ?
+how to get it back ? (is git a liar ?)
+to go back to latest state before checkout - just checkout your branch as its pointing to the latest commit you had made.
+
+git checkout master
+git log --oneline
+
+suppose you want to keep only the first commit and remove the second commit as it is not needed by you at all even in workspace.then :
+git reset --hard resets workspace and repo and staging.
+git reset preserves the working directory. The commits are gone, but the contents are still on disk. This is the safest option, but often, you'll want to "undo" the commits and the changes in one move—that's what --hard does.
+
+git reset --hard <commit number>
+ls
+git log --oneline
+second commit is gone forever with reset --hard
+to get second commit after reset hard 
+git reflog
+git reset --hard <your commit hash>
+
+HEAD changes only.HEAD changes when you switch branches, make commits with git commit and un-make commits with git reset, but HEAD does not change when you git checkout -- <bad filename> (from an earlier scenario—as mentioned before, those changes were never committed, so the reflog can't help us recover those.
+
+git reflog doesn't last forever. Git will periodically clean up objects which are "unreachable." Don't expect to find months-old commits lying around in the reflog forever.
+
+Your reflog is yours and yours alone. You can't use git reflog to restore another developer's un-pushed commit
+
+now let us see detached state of head:
+let us checkout again to first commit.
+we will go to detached head state
+And in that state add new commits.
+If you are not on the latest commit - meaning that HEAD is pointing to a prior commit in history its called detached HEAD.
+
+git log --oneline
+git checkout <first commit>
+
+we are now in detached head state.
+now make a new commit 
+
+vim -p file3 > test
+git add
+git commit
+
+git log --oneline
+
+git checkout master 
+now is it safe or dangerous ?
+
+so whenever you are in a detached head state - make a branch.
+To make local changes and to apply them on a committed version :
+modify a file in workspace 
+git stash save
+git checkout master
+git stash pop
+//your modifications are saved
+
+suppose you want to undo the last commit .
+but you want your workspace to be unchanged.
+
+$ git commit -m "Something terribly misguided"              
+$ git reset HEAD~                                           
+<< edit files as necessary >>                               
+$ git add ...                                               
+$ git commit    
+
+also try with this git reset --soft HEAD~
+
+
+
+
+
+
 To distribute any combination of commits to your colleagues and customers.
+Without version control - can you see what are changes to a file between two specified dates?
+
+Why GIT ?
+
+
 
 What is HEAD ?
 --------------------------------------------
@@ -217,6 +368,7 @@ Diagrams -
 https://git-scm.com/images/about/index1@2x.png
 http://i.stack.imgur.com/MgaV9.png
 http://images.abizern.org.s3.amazonaws.com/365git/March10/GitDiffSimple.png
+http://i.stack.imgur.com/NuThL.png
 
 
 
