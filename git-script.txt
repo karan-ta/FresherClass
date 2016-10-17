@@ -80,15 +80,29 @@ Think of staging area / index as
 a way of “confirming” your changes, one by one, before doing a commit.
 git status
 
-** show diff now
-open a tracked file in vim 
+Using diff to confirm your actions.
+mkdir trydiff
+git init
 vim -p readme
+git status 
+//predict the status
+git diff
+//predict the diff
+//if diff is ok :
+git add
+git diff head
+git commit
+vim -p readme > "type a new line"
+git status
+//predict the status
 git diff
 git add
 git diff HEAD
-git commit
+git commit 
+//repeat this cycle 3 more times
 
-use diff to confirm your actions
+
+use diff to confirm your actions and keep your pride.
 
 
 
@@ -154,7 +168,7 @@ it also allows you to plan your commits better. (we will discuss this)
 
 
 
-Why do we need version control 
+Why do we need version control? 
 -------------------------------------------
 if working alone - to go back to any past combination of commits.
 
@@ -371,9 +385,29 @@ http://images.abizern.org.s3.amazonaws.com/365git/March10/GitDiffSimple.png
 http://i.stack.imgur.com/NuThL.png
 
 
-
-
-
+mkdir trydiff
+git init
+vim -p readme
+git status 
+//what is the status?
+git diff
+//whats the diff?
+//if diff is ok :
+git add
+git diff head
+//whats the diff?
+git commit
+vim -p readme > "type a new line"
+git status
+//what is the status?
+git diff
+//whats the diff?
+git add
+git diff HEAD
+//whats the diff ?
+git commit 
+-----------------------------------
+//what is the status
 
 
 
