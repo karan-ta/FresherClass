@@ -4,6 +4,14 @@ commit all files already present in your staging or modified in workspace and th
 check that staging and workspace are both clean (have not untracked or modified files) with git status before every example.
 use up arrow and tab for easy typing.
 
+Diagrams - 
+https://git-scm.com/images/about/index1@2x.png
+lifecycle
+http://i.stack.imgur.com/MgaV9.png
+http://images.abizern.org.s3.amazonaws.com/365git/March10/GitDiffSimple.png
+http://i.stack.imgur.com/NuThL.png
+
+
 
 
 
@@ -217,7 +225,66 @@ git add userregistration
 git reset shopping cart
 git commit -m "message"
 
+What is HEAD ?
+--------------------------------------------
+latest commit of current branch is HEAD
+git rev-parse HEAD
+try above commit on different branches
 
+lesson - Head is the latest commit of the current branch
+
+
+
+Working with git branching?
+------------------------------------------------------
+
+Cd code/learngit
+Git init
+Git branch 
+// no branch will be present
+vim -p readme
+git add . && git commit -m 
+git branch
+//we are in master branch
+vim -p shoppingcart
+git add . && git commit -m 
+ls 
+git log --oneline
+git branch homepage-branch
+git branch
+git checkout homepage-branch
+ls && git log --oneline
+vim -p homepage
+git add . && git commit -m 
+ls && git log --oneline
+git checkout master
+ls && git log --oneline
+git merge homepage-branch
+ls && git log --oneline
+
+
+What is git cherry-pick?
+--------------------------------------------
+make an initial commit so that you get the master branch.
+if you do git branch - you should see the master branch.
+git branch registration-branch
+git branch
+git checkout registration-branch
+vim -p guitaruser 
+git add . && git commit -m "commit guitar user"
+
+vim -p pianouser
+git add . && git commit -m "commit piano user"
+ls && git log --oneline
+vim -p drumsuser
+git add . && git commit -m "commit drums user"
+ls && git log --oneline
+//copy the commit hash of guitar user
+git checkout master 
+ls && git log --oneline
+git cherrypick <commit hash of guitar user>
+ls && git log --oneline
+// now cherry pick the piano user as well into the master branch.
 
 Why do we need version control? 
 -------------------------------------------
@@ -336,74 +403,4 @@ Without version control - can you see what are changes to a file between two spe
 Why GIT ?
 
 
-
-What is HEAD ?
---------------------------------------------
-latest commit of current branch is HEAD
-git rev-parse HEAD
-try above commit on different branches
-
-lesson - Head is the latest commit of the current branch
-
-
-
-Working with git branching?
-------------------------------------------------------
-
-Cd code/learngit
-Git init
-Git branch 
-// no branch will be present
-vim -p readme
-git add . && git commit -m 
-git branch
-//we are in master branch
-vim -p shoppingcart
-git add . && git commit -m 
-ls 
-git log --oneline
-git branch homepage-branch
-git branch
-git checkout homepage-branch
-ls && git log --oneline
-vim -p homepage
-git add . && git commit -m 
-ls && git log --oneline
-git checkout master
-ls && git log --oneline
-git merge homepage-branch
-ls && git log --oneline
-
-
-What is git cherry-pick?
---------------------------------------------
-make an initial commit so that you get the master branch.
-if you do git branch - you should see the master branch.
-git branch registration-branch
-git branch
-git checkout registration-branch
-vim -p guitaruser 
-git add . && git commit -m "commit guitar user"
-
-vim -p pianouser
-git add . && git commit -m "commit piano user"
-ls && git log --oneline
-vim -p drumsuser
-git add . && git commit -m "commit drums user"
-ls && git log --oneline
-//copy the commit hash of guitar user
-git checkout master 
-ls && git log --oneline
-git cherrypick <commit hash of guitar user>
-ls && git log --oneline
-// now cherry pick the piano user as well into the master branch.
-
-
-
-Diagrams - 
-https://git-scm.com/images/about/index1@2x.png
-lifecycle
-http://i.stack.imgur.com/MgaV9.png
-http://images.abizern.org.s3.amazonaws.com/365git/March10/GitDiffSimple.png
-http://i.stack.imgur.com/NuThL.png
 
