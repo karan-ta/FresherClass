@@ -1,8 +1,9 @@
-
-*** all commands try with clean/empty staging and clean/empty workspace.
+Debugging Info : 
+*** all commands try with clean/empty staging and clean/empty workspace and with an initial commit
 commit all files already present in your staging or modified in workspace and then try each below example :
 check that staging and workspace are both clean (have not untracked or modified files) with git status before every example.
 use up arrow and tab for easy typing.
+
 
 
 
@@ -80,6 +81,26 @@ Think of staging area / index as
 a way of “confirming” your changes, one by one, before doing a commit.
 git status
 
+What is git diff ?
+---------------------------------------------
+commit everything in staging and workspace with command git commit -a
+now workspace and staging are clean.
+
+now :
+
+vim -p readme > a line
+vim -p index > a line
+git status
+//modified files are 2 .
+git diff
+//diff between staging and workspace
+git diff HEAD 
+//same as above
+git diff --cached
+//both staging and HEAD have nothing new so no diff
+
+
+
 Using diff to confirm your actions.
 mkdir trydiff
 git init
@@ -99,8 +120,11 @@ git diff
 git add
 git diff HEAD
 git commit 
+vim -p readme
+git status ....
 //repeat this cycle 3 more times
 
+// add git diff --cached
 
 use diff to confirm your actions and keep your pride.
 
@@ -108,8 +132,8 @@ use diff to confirm your actions and keep your pride.
 
 How to skip the staging area ?
 --------------------------------------------------------
-when you create a new file.
-it is untracked
+when you create a new file in your work tree.
+it is untracked.
  you cannot skip the staging area and directly commit it.
 vim -p newfile
 now you do git status
@@ -127,21 +151,36 @@ git commit -a -m "commit all modified files in working tree"
 ----------------------------------------
 //make staging and workspace clean by commiting everything already present in staging.
 with clean workspace and clean staging - 
-vim -p readme > a line
-vim -p index > a line
+//make an initial commit .
+
+vim -p shoppingcart > cartcode
+vim -p  userregistration  > registration code
 git add .
-vim -p index
-// 2 files in staging area and 1 file modified
+vim -p userregistration >logout code
+// 2 files in staging area and 1 file modified in work tree
 //lets commit all
+git diff HEAD
+git diff --cached
 git commit -a -m "commit staging and modified together and skiping staging area"
 
+git show 
 
 only modified files can be committed by skipping staging area.
 
 try predicting status .
+
+Lessons: 
 if new file is created in workspace - status will be untracked.
 if file is added in staging and then file is modified in workspace, 
 then status will be modified.
+
+if a file is untracked - you cannot skip the staging area and directly commit that file to local repo.
+if a file is modified - you can skip the staging area and directly commit it.
+when we do git commit -a , modified files and staging files are all commited
+whenever we do git commit -a , we should do git diff HEAD
+to see which files from staging area will be committed on doing git commit -a do 
+git diff --cached 
+always after commiting do git show.
 
 When to skip the staging area ?
 -------------------------------------------------------
@@ -149,12 +188,15 @@ when you dont need to plan your commits.
 if you see the diff between workspace and repository with 
 git diff HEAD
 and you are happy with the difference.
-also if you see the diff between workspace and staging with 
-git diff 
 and you are happy. 
 being happy here means - if your diff results are the exact ones you want to commit.
 so go ahead and commit if you are happy with the diff.
+ 
+ Skip the staging area if you dont need to prepare or plan your next commit.But check the difference before commiting
 
+git diff -- cached before  commit -m
+do git diff HEAD before commit -a -m 
+do git show after commit
 
 Why we need the two stage commit process ?
 ------------------------------------------------------------------------
@@ -164,7 +206,16 @@ so that its not commited untill you track it (by doing git add)
 so when you commit with the -a flag , even then staging allows you to not commit some files.
 just let them be untracked if you do not want to commit.
 
-it also allows you to plan your commits better. (we will discuss this)
+It also allows you to plan your commits better. (we will discuss this)
+
+vim -p shoppingcart > tax code
+git add shopping cart
+git reset shopping cart
+vim -p userregistration > emailuser
+git add shoppingcart
+git add userregistration
+git reset shopping cart
+git commit -m "message"
 
 
 
@@ -292,123 +343,67 @@ latest commit of current branch is HEAD
 git rev-parse HEAD
 try above commit on different branches
 
-What is git diff ?
----------------------------------------------
-commit everything in staging and workspace with command git commit -a
-now workspace and staging are clean.
+lesson - Head is the latest commit of the current branch
 
-now :
 
-vim -p readme > a line
-vim -p index > a line
-git status
-//modified files are 2 .
-git diff
-//diff between staging and workspace
-git diff HEAD 
-//same as above
-git diff --cached
-//both staging and HEAD have nothing new so no diff
 
 Working with git branching?
 ------------------------------------------------------
+
 Cd code/learngit
 Git init
 Git branch 
 // no branch will be present
-Touch README
-notepad README
-//write text as first commit in readme, save and close
-Git status
-Git add
-Git commit
-Git branch
-//master branch will now be created
-Git log
-//shows one commit
-// let us make a new branch
-Git branch feature-branch
-//switch to feature-branch
-Git checkout feature-branch
-Git log
-//shows one commit as branch was created after one commit in master branch
-Notepad README
-//edit text and write second commit save and close
-Git add  
-git commit -m “second commit”
-Git log
-//2 commits shown in feature branch
-//now switch to master branch
-Git checkout master
-Notepad README 
-
-//only one commit is present in working tree - as second commit was added in feature branch and not master branch
-Close notepad
-Git log 
-//only one commit is shown as second commit was done in feature branch and not master branch
-//Now we need second commit in master branch
-Git merge feature-branch
-Git log
-// 2 commits are shown
-Notepad README 
-// 2 commits are shown 
-
-Close notepad
-//Repeat this cycle few times.
+vim -p readme
+git add . && git commit -m 
+git branch
+//we are in master branch
+vim -p shoppingcart
+git add . && git commit -m 
+ls 
+git log --oneline
+git branch homepage-branch
+git branch
+git checkout homepage-branch
+ls && git log --oneline
+vim -p homepage
+git add . && git commit -m 
+ls && git log --oneline
+git checkout master
+ls && git log --oneline
+git merge homepage-branch
+ls && git log --oneline
 
 
 What is git cherry-pick?
 --------------------------------------------
-on master branch - 
-vim -p feature1
-vim -p feature2
-git add feature1
-git branch newfeature-branch
-git commit -m "feature1"
-//note the commit hash with git log --oneline
-git add feature2
-git commit -m "feature2"
-//note the commit hash with git log --oneline
-git checkout newfeature-branch
-ls
-git cherry-pick <commit number>
-ls
-switch to master and git log --oneline
-switch to newfeature-branch and git log --oneline
-observe the difference in logs.
+make an initial commit so that you get the master branch.
+if you do git branch - you should see the master branch.
+git branch registration-branch
+git branch
+git checkout registration-branch
+vim -p guitaruser 
+git add . && git commit -m "commit guitar user"
+
+vim -p pianouser
+git add . && git commit -m "commit piano user"
+ls && git log --oneline
+vim -p drumsuser
+git add . && git commit -m "commit drums user"
+ls && git log --oneline
+//copy the commit hash of guitar user
+git checkout master 
+ls && git log --oneline
+git cherrypick <commit hash of guitar user>
+ls && git log --oneline
+// now cherry pick the piano user as well into the master branch.
+
 
 
 Diagrams - 
 https://git-scm.com/images/about/index1@2x.png
+lifecycle
 http://i.stack.imgur.com/MgaV9.png
 http://images.abizern.org.s3.amazonaws.com/365git/March10/GitDiffSimple.png
 http://i.stack.imgur.com/NuThL.png
-
-
-mkdir trydiff
-git init
-vim -p readme
-git status 
-//what is the status?
-git diff
-//whats the diff?
-//if diff is ok :
-git add
-git diff head
-//whats the diff?
-git commit
-vim -p readme > "type a new line"
-git status
-//what is the status?
-git diff
-//whats the diff?
-git add
-git diff HEAD
-//whats the diff ?
-git commit 
------------------------------------
-//what is the status
-
-
-
 
