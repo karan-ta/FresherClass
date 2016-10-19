@@ -338,6 +338,12 @@ suppose you want to keep only the first commit and remove the second commit as i
 git reset --hard resets workspace and repo and staging.
 git reset preserves the working directory. The commits are gone, but the contents are still on disk. This is the safest option, but often, you'll want to "undo" the commits and the changes in one move—that's what --hard does.
 
+git reset <first commit number>
+git log --oneline
+git reflog
+git reset <second commit number>
+git log --oneline
+
 git reset --hard <commit number>
 ls
 git log --oneline
@@ -353,10 +359,10 @@ git reflog doesn't last forever. Git will periodically clean up objects which ar
 Your reflog is yours and yours alone. You can't use git reflog to restore another developer's un-pushed commit
 
 now let us see detached state of head:
+If you are not on the latest commit - meaning that HEAD is pointing to a prior commit in history its called detached HEAD.
 let us checkout again to first commit.
 we will go to detached head state
 And in that state add new commits.
-If you are not on the latest commit - meaning that HEAD is pointing to a prior commit in history its called detached HEAD.
 
 git log --oneline
 git checkout <first commit>
@@ -373,6 +379,8 @@ git log --oneline
 git checkout master 
 now is it safe or dangerous ?
 
+// try to cherry pick the lost commit 
+
 so whenever you are in a detached head state - make a branch.
 To make local changes and to apply them on a committed version :
 modify a file in workspace 
@@ -387,7 +395,7 @@ but you want your workspace to be unchanged.
 $ git commit -m "Something terribly misguided"              
 $ git reset HEAD~                                           
 << edit files as necessary >>                               
-$ git add ...                                               
+$ git add .                                            
 $ git commit    
 
 also try with this git reset --soft HEAD~
