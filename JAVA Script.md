@@ -97,3 +97,22 @@ http://stackoverflow.com/questions/13098143/why-does-the-behavior-of-the-integer
 valueof
 intvalue
 
+int a = 5  // a is a data type , a is not an object
+	Integer a = 5 // a is object .
+
+	Integer a = new Integer(5)
+	Integer b = new Integer(5)//2 objects are created
+
+	Integer aobj = 128;//autoboxing - compiler is automatically converting int type to integer
+	Integer b = 128;
+	int at = aobj  //unboxing
+	int at = Integer.parseInt
+
+
+	//2 objects are created
+	//127 , 1024
+
+	lhs == rhs
+	lhs and rhs are same objects
+
+	// comparing objects - dont use == , use equals method
