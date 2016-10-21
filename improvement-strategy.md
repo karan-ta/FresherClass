@@ -1,3 +1,4 @@
+your day has 3 parts - practice , work , learn
 
 practice  (before 9 or after 5) 
 physical excercises
@@ -9,7 +10,8 @@ tutorial
 
 streak - continuity
 maintain continuity.
-
+keep off your mobile
+leechblock - install to switch fb , tw, in,sn,you
 ____________
 
 
@@ -21,17 +23,16 @@ google
 stackoverflow
 ask your colleague
 physical excercises
+
+you will be judged by your work.
+
 ______________
 
 learning (before 9 or after 5 )
 
+find out the best resources - 2 hours in a week .
+book , video , course , tutorial
 physical excercises
 _____________
 
-try out complete git script and ask any questions.
-
-try out trygit tutorial and ask any questions.
-
-fork fresherclass, add files of your questions / findings.
-send a pull request to upstream.
 
