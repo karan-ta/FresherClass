@@ -54,7 +54,9 @@ public class Hello {
 }
 set - {1,2,3,4} 
 not a set {1,2,2,3,4}
+
 A data type is a set of values and a set of operations defined on them  
+int = -6553555 to 655365 +, - , *
 http://introcs.cs.princeton.edu/java/11cheatsheet/images/built-in.png
 
         int a = 10,b = 0;
@@ -65,6 +67,9 @@ http://introcs.cs.princeton.edu/java/11cheatsheet/images/built-in.png
 		System.out.println(c);
 		System.out.println(as+bs);
 		System.out.println(as+bs+c);
+
+
+		
 		
 		//no strong type checking
 
